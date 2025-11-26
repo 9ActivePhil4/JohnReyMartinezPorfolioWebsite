@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>John Rey Martinez — Creative Visual Artist</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;}
+        html{scroll-behavior:smooth;}
+        body{font-family:'Inter',sans-serif;background:#fff;color:#111;line-height:1.7;overflow-x:hidden;}
+
+        nav{position:fixed;top:0;left:0;right:0;padding:24px 5%;display:flex;justify-content:space-between;align-items:center;z-index:1000;transition:all 0.4s;color:#111;}
+        nav.scrolled{background:rgba(255,255,255,0.96);backdrop-filter:blur(15px);padding:18px 5%;box-shadow:0 4px 30px rgba(0,0,0,0.1);}
+
+        .logo{font-size:1.4rem;font-weight:700;letter-spacing:-0.8px;white-space:nowrap;}
+        .logo::before{content:"John Rey Martinez";}
+        @media (max-width:640px){.logo::before{content:"JRM";}}
+
+        nav ul{display:flex;gap:20px;list-style:none;}
+        nav ul a{font-weight:500;font-size:0.95rem;color:inherit;text-decoration:none;position:relative;padding:6px 0;}
+        nav ul a::after{content:'';position:absolute;bottom:0;left:50%;width:0;height:2px;background:#111;transition:width 0.4s ease,left 0.4s ease;}
+        nav ul a.active::after{width:100%;left:0;}
+        nav ul a:hover{opacity:0.7;}
+
+        .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:0 5%;padding-top:100px;}
+        .hero h1{font-size:clamp(2.8rem,8vw,6rem);font-weight:700;letter-spacing:-2px;line-height:1;margin-bottom:16px;}
+        .hero p{font-size:1.1rem;max-width:90%;color:#444;margin-bottom:50px;}
+
+        .btn{padding:16px 40px;border:2px solid #111;background:transparent;color:#111;font-weight:600;font-size:1.1rem;border-radius:50px;transition:all 0.4s ease;display:inline-block;text-decoration:none;cursor:pointer;}
+        .btn:hover{background:#111;color:#fff !important;transform:translateY(-3px);box-shadow:0 10px 20px rgba(0,0,0,0.15);}
+
+        section{padding:120px 5%;}
+        h2{font-size:clamp(2.5rem,7vw,3.8rem);text-align:center;margin-bottom:70px;letter-spacing:-1.5px;}
+        #about p{max-width:800px;margin:0 auto;font-size:1.15rem;text-align:center;color:#444;line-height:1.9;}
+
+        .services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:30px;max-width:1200px;margin:0 auto;}
+        .service-btn{
+            padding:32px 20px;border:2px solid #ddd;border-radius:20px;text-align:center;background:#fff;
+            transition:all 0.4s ease;text-decoration:none;color:#111;display:block;cursor:pointer;
+        }
+        .service-btn h3{font-size:1.6rem;margin-bottom:10px;font-weight:600;}
+        .service-btn p{color:#555;font-size:1rem;}
+        .service-btn:hover{border-color:#111;transform:translateY(-10px);box-shadow:0 20px 40px rgba(0,0,0,0.12);}
+
+        .modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.92);align-items:center;justify-content:center;z-index:9999;padding:20px;}
+        .modal.active{display:flex;}
+        .modal-content{position:relative;width:100%;max-width:900px;border-radius:20px;overflow:hidden;}
+        .close-modal{position:absolute;top:15px;right:20px;color:#fff;font-size:2rem;cursor:pointer;z-index:10;background:rgba(0,0,0,0.5);width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;}
+
+        .reel-wrapper{max-width:100%;margin:0 auto;border-radius:20px;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,0.12);}
+        .reel-container{position:relative;padding-bottom:56.25%;}
+        .reel-container iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0;}
+
+        .contact-section{padding:100px 5%;background:#f9f9f9;text-align:center;}
+        .contact-box{max-width:600px;margin:0 auto;background:#fff;padding:40px 30px;border-radius:20px;box-shadow:0 15px 40px rgba(0,0,0,0.1);}
+        .contact-box input,.contact-box textarea{width:100%;padding:14px;margin:12px 0;border:1px solid #ddd;border-radius:12px;font-size:1rem;}
+        .contact-box button{padding:14px 40px;background:#111;color:#fff;border:none;border-radius:50px;font-weight:600;cursor:pointer;transition:0.3s;}
+        .contact-box button:hover{background:#333;}
+
+        footer{padding:80px 5%;text-align:center;border-top:1px solid #eee;color:#777;font-size:0.9rem;}
+
+        @media (max-width:768px){section{padding:90px 5%;}.btn{padding:14px 36px;font-size:1rem;}}
+        @media (max-width:480px){.services-grid{grid-template-columns:1fr;}}
+    </style>
+</head>
+<body>
+
+    <nav id="nav">
+        <div class="logo"></div>
+        <ul>
+            <li><a href="#home" class="active">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#reel">Reel</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero" id="home">
+        <h1>Animation & VFX<br>Video Editor & Cinematographer</h1>
+        <p>Crafting cinematic visuals — from 3D animation and VFX to weddings, events, and branded content.</p>
+        <a href="https://9activephil4.github.io/JohnReyMartinezLinkTree/" target="_blank" class="btn">Socials</a>
+    </section>
+
+    <section id="about">
+        <h2>About Me</h2>
+        <p>
+            Multi-disciplinary visual artist specializing in 3D animation, visual effects, video editing, 
+            event videography, photography, and cinematic storytelling. 
+            I deliver polished, story-driven results — no matter the project.
+        </p>
+    </section>
+
+    <!-- SERVICES — 5 nalang, wala nang Cinematography -->
+    <section id="services">
+        <h2>Services</h2>
+        <div class="services-grid">
+            <div class="service-btn" data-video="FdE5G95B7Mg">
+                <h3>3D Animation & VFX</h3>
+                <p>Character animation, CGI, simulations, compositing</p>
+            </div>
+            <div class="service-btn" data-video="https://youtu.be/FuYfIXL_YEg?si=Gbrrx73VT-MsqmXf">
+                <h3>Event Videography</h3>
+                <p>Weddings, concerts, corporate events</p>
+            </div>
+            <div class="service-btn" data-video="EDITING_ID_HERE">
+                <h3>Video Editing & Color</h3>
+                <p>Cinematic edits, commercials, music videos</p>
+            </div>
+            <div class="service-btn" data-video="PHOTO_ID_HERE">
+                <h3>Photography</h3>
+                <p>Portraits, events, products</p>
+            </div>
+            <div class="service-btn" data-video="MOTION_ID_HERE">
+                <h3>Motion Graphics</h3>
+                <p>Logo animations, titles, explainer videos</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- MODAL para sa service reels -->
+    <div class="modal" id="videoModal">
+        <div class="modal-content">
+            <span class="close-modal">×</span>
+            <iframe id="modalVideo" src="" allow="autoplay; fullscreen" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <section id="reel">
+        <h2>Animation & VFX Reel 2025</h2>
+        <div class="reel-wrapper">
+            <div class="reel-container">
+                <iframe src="https://www.youtube.com/embed/FdE5G95B7Mg?si=kTkQcu-7r83GaXke&rel=0&modestbranding=1"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact-section">
+        <h2>Message Me</h2>
+        <div class="contact-box">
+            <form action="https://formspree.io/f/xpwledgr" method="POST">
+                <input type="text" name="name" placeholder="Your Name" required>
+                <input type="email" name="_replyto" placeholder="Your Email" required>
+                <textarea name="message" rows="5" placeholder="Your Message..." required></textarea>
+                <button type="submit">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2025 John Rey Martinez. All rights reserved.</p>
+    </footer>
+
+    <script>
+        window.addEventListener('scroll',()=>{
+            const nav = document.getElementById('nav');
+            const links = document.querySelectorAll('nav ul a');
+            window.scrollY > 80 ? nav.classList.add('scrolled') : nav.classList.remove('scrolled');
+
+            let current = 'home';
+            document.querySelectorAll('section').forEach(sec=>{
+                if(scrollY >= sec.offsetTop - 200) current = sec.getAttribute('id');
+            });
+            links.forEach(a=>{
+                a.classList.remove('active');
+                if(a.getAttribute('href') === `#${current}`) a.classList.add('active');
+            });
+        });
+
+        // Modal
+        const modal = document.getElementById('videoModal');
+        const iframe = document.getElementById('modalVideo');
+        const close = document.querySelector('.close-modal');
+
+        document.querySelectorAll('.service-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const videoId = btn.getAttribute('data-video');
+                if(videoId && !videoId.includes('_HERE')){
+                    iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1`;
+                    modal.classList.add('active');
+                }
+            });
+        });
+
+        close.addEventListener('click', () => {
+            modal.classList.remove('active');
+            iframe.src = '';
+        });
+        modal.addEventListener('click', (e) => {
+            if(e.target === modal){
+                modal.classList.remove('active');
+                iframe.src = '';
+            }
+        });
+    </script>
+</body>
+</html>

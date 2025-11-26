@@ -10,43 +10,104 @@
         html{scroll-behavior:smooth;}
         body{font-family:'Inter',sans-serif;background:#fff;color:#111;line-height:1.7;overflow-x:hidden;}
 
-        nav{position:fixed;top:0;left:0;right:0;padding:24px 5%;display:flex;justify-content:space-between;align-items:center;z-index:1000;transition:all 0.4s;color:#111;}
-        nav.scrolled{background:rgba(255,255,255,0.96);backdrop-filter:blur(15px);padding:18px 5%;box-shadow:0 4px 30px rgba(0,0,0,0.1);}
-
-        .logo{font-size:1.4rem;font-weight:700;letter-spacing:-0.8px;white-space:nowrap;}
+        /* NAVIGATION */
+        nav{
+            position:fixed;top:0;left:0;right:0;padding:16px 5%;display:flex;justify-content:space-between;align-items:center;
+            z-index:1000;transition:all 0.4s;color:#111;background:rgba(255,255,255,0.96);backdrop-filter:blur(15px);
+            box-shadow:0 4px 30px rgba(0,0,0,0.1);
+        }
+        .logo{
+            font-size:1.4rem;font-weight:700;letter-spacing:-0.8px;white-space:nowrap;z-index:1001;
+        }
         .logo::before{content:"John Rey Martinez";}
-        @media (max-width:640px){.logo::before{content:"JRM";}}
+        @media (max-width:768px){.logo::before{content:"JRM";font-size:1.5rem;}}
 
-        nav ul{display:flex;gap:20px;list-style:none;}
-        nav ul a{font-weight:500;font-size:0.95rem;color:inherit;text-decoration:none;position:relative;padding:6px 0;}
-        nav ul a::after{content:'';position:absolute;bottom:0;left:50%;width:0;height:2px;background:#111;transition:width 0.4s ease,left 0.4s ease;}
-        nav ul a.active::after{width:100%;left:0;}
-        nav ul a:hover{opacity:0.7;}
+        /* Desktop Menu */
+        .nav-links{
+            display:flex;gap:28px;list-style:none;
+        }
+        .nav-links a{
+            font-weight:500;font-size:0.95rem;color:inherit;text-decoration:none;position:relative;padding:6px 0;
+        }
+        .nav-links a::after{
+            content:'';position:absolute;bottom:0;left:50%;width:0;height:2px;background:#111;
+            transition:all 0.4s ease;
+        }
+        .nav-links a.active::after,.nav-links a:hover::after{width:100%;left:0;}
 
-        .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:0 5%;padding-top:100px;}
-        .hero h1{font-size:clamp(2.8rem,8vw,6rem);font-weight:700;letter-spacing:-2px;line-height:1;margin-bottom:16px;}
-        .hero p{font-size:1.1rem;max-width:90%;color:#444;margin-bottom:50px;}
+        /* Hamburger Icon (fixed size, always visible fully) */
+        .hamburger{
+            display:none;cursor:pointer;z-index:1001;padding:8px;border-radius:8px;transition:background 0.3s;
+        }
+        .hamburger:hover{background:rgba(0,0,0,0.05);}
+        .hamburger span{
+            display:block;width:24px;height:2.5px;background:#111;border-radius:3px;transition:all 0.3s;
+            margin:5px 0;
+        }
+        .hamburger.active span:nth-child(1){transform:rotate(45deg) translate(7px,7px);}
+        .hamburger.active span:nth-child(2){opacity:0;}
+        .hamburger.active span:nth-child(3){transform:rotate(-45deg) translate(7px,-7px);}
 
-        .btn{padding:16px 40px;border:2px solid #111;background:transparent;color:#111;font-weight:600;font-size:1.1rem;border-radius:50px;transition:all 0.4s ease;display:inline-block;text-decoration:none;cursor:pointer;}
-        .btn:hover{background:#111;color:#fff !important;transform:translateY(-3px);box-shadow:0 10px 20px rgba(0,0,0,0.15);}
+        /* Mobile Menu — PERFECTLY CENTERED & RESPONSIVE */
+        .mobile-menu{
+            position:fixed;top:0;left:0;width:100%;height:100vh;background:#fff;
+            display:flex;flex-direction:column;justify-content:center;align-items:center;gap:40px;
+            font-size:1.8rem;font-weight:600;transform:translateX(100%);transition:transform 0.45s cubic-bezier(0.77,0,0.18,1);
+            z-index:999;padding:20px;box-sizing:border-box;
+        }
+        .mobile-menu.active{transform:translateX(0);}
+        .mobile-menu a{
+            color:#111;text-decoration:none;transition:opacity 0.3s;font-size:1.8rem;
+        }
+        .mobile-menu a:hover{opacity:0.6;}
 
-        section{padding:120px 5%;}
+        /* HERO */
+        .hero{
+            min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;
+            text-align:center;padding:0 5%;padding-top:80px;gap:20px;
+        }
+        .hero h1{
+            font-size:clamp(2.8rem,8vw,6rem);font-weight:700;letter-spacing:-2px;line-height:1;
+        }
+        .hero p{
+            font-size:1.1rem;max-width:90%;color:#444;
+        }
+
+        .btn{
+            padding:16px 40px;border:2px solid #111;background:transparent;color:#111;
+            font-weight:600;font-size:1.1rem;border-radius:50px;transition:all 0.4s ease;
+            text-decoration:none;display:inline-block;cursor:pointer;margin-top:20px;
+        }
+        .btn:hover{
+            background:#111;color:#fff;transform:translateY(-4px);
+            box-shadow:0 12px 25px rgba(0,0,0,0.15);
+        }
+
+        section{padding:100px 5%;}
         h2{font-size:clamp(2.5rem,7vw,3.8rem);text-align:center;margin-bottom:70px;letter-spacing:-1.5px;}
         #about p{max-width:800px;margin:0 auto;font-size:1.15rem;text-align:center;color:#444;line-height:1.9;}
 
-        .services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:30px;max-width:1200px;margin:0 auto;}
+        .services-grid{
+            display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:30px;max-width:1200px;margin:0 auto;
+        }
         .service-btn{
             padding:32px 20px;border:2px solid #ddd;border-radius:20px;text-align:center;background:#fff;
-            transition:all 0.4s ease;text-decoration:none;color:#111;display:block;cursor:pointer;
+            transition:all 0.4s ease;cursor:pointer;
         }
-        .service-btn h3{font-size:1.6rem;margin-bottom:10px;font-weight:600;}
+        .service-btn h3{font-size:1.55rem;margin-bottom:10px;font-weight:600;}
         .service-btn p{color:#555;font-size:1rem;}
-        .service-btn:hover{border-color:#111;transform:translateY(-10px);box-shadow:0 20px 40px rgba(0,0,0,0.12);}
+        .service-btn:hover{
+            border-color:#111;transform:translateY(-10px);box-shadow:0 20px 40px rgba(0,0,0,0.12);
+        }
 
-        .modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.92);align-items:center;justify-content:center;z-index:9999;padding:20px;}
+        .modal{
+            display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.94);
+            align-items:center;justify-content:center;z-index:9999;padding:20px;
+        }
         .modal.active{display:flex;}
         .modal-content{position:relative;width:100%;max-width:900px;border-radius:20px;overflow:hidden;}
-        .close-modal{position:absolute;top:15px;right:20px;color:#fff;font-size:2rem;cursor:pointer;z-index:10;background:rgba(0,0,0,0.5);width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;}
+        .eos-modal{position:absolute;top:15px;right:20px;color:#fff;font-size:2rem;cursor:pointer;
+            background:rgba(0,0,0,0.5);width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;}
 
         .reel-wrapper{max-width:100%;margin:0 auto;border-radius:20px;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,0.12);}
         .reel-container{position:relative;padding-bottom:56.25%;}
@@ -60,22 +121,46 @@
 
         footer{padding:80px 5%;text-align:center;border-top:1px solid #eee;color:#777;font-size:0.9rem;}
 
-        @media (max-width:768px){section{padding:90px 5%;}.btn{padding:14px 36px;font-size:1rem;}}
-        @media (max-width:480px){.services-grid{grid-template-columns:1fr;}}
+        /* MOBILE FIXES */
+        @media (max-width:768px){
+            nav{padding:14px 5%;}
+            .nav-links{display:none;}
+            .hamburger{display:block;}
+            section{padding:80px 5%;}
+            .hero{padding-top:60px;}
+            .btn{padding:14px 32px;font-size:1rem;}
+            .mobile-menu{font-size:1.6rem;gap:35px;}
+        }
+        @media (max-width:480px){
+            .hero h1{font-size:2.6rem;}
+            .services-grid{grid-template-columns:1fr;}
+            .mobile-menu{font-size:1.5rem;gap:30px;}
+        }
     </style>
 </head>
 <body>
 
     <nav id="nav">
         <div class="logo"></div>
-        <ul>
+        <ul class="nav-links">
             <li><a href="#home" class="active">Home</a></li>
             <li><a href="#about">About</a></li>
             <li><a href="#services">Services</a></li>
             <li><a href="#reel">Reel</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
+        <div class="hamburger" id="hamburger">
+            <span></span><span></span><span></span>
+        </div>
     </nav>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <a href="#reel">Reel</a>
+        <a href="#contact">Contact</a>
+    </div>
 
     <section class="hero" id="home">
         <h1>Animation & VFX<br>Video Editor & Cinematographer</h1>
@@ -87,12 +172,11 @@
         <h2>About Me</h2>
         <p>
             Multi-disciplinary visual artist specializing in 3D animation, visual effects, video editing, 
-            event videography, photography, and cinematic storytelling. 
+            event videography, photography, and motion graphics. 
             I deliver polished, story-driven results — no matter the project.
         </p>
     </section>
 
-    <!-- SERVICES — 5 nalang, wala nang Cinematography -->
     <section id="services">
         <h2>Services</h2>
         <div class="services-grid">
@@ -100,7 +184,7 @@
                 <h3>3D Animation & VFX</h3>
                 <p>Character animation, CGI, simulations, compositing</p>
             </div>
-            <div class="service-btn" data-video="https://youtu.be/FuYfIXL_YEg?si=Gbrrx73VT-MsqmXf">
+            <div class="service-btn" data-video="FuYfIXL_YEg">
                 <h3>Event Videography</h3>
                 <p>Weddings, concerts, corporate events</p>
             </div>
@@ -119,10 +203,9 @@
         </div>
     </section>
 
-    <!-- MODAL para sa service reels -->
     <div class="modal" id="videoModal">
         <div class="modal-content">
-            <span class="close-modal">×</span>
+            <span class="eos-modal">×</span>
             <iframe id="modalVideo" src="" allow="autoplay; fullscreen" allowfullscreen></iframe>
         </div>
     </div>
@@ -131,9 +214,7 @@
         <h2>Animation & VFX Reel 2025</h2>
         <div class="reel-wrapper">
             <div class="reel-container">
-                <iframe src="https://www.youtube.com/embed/FdE5G95B7Mg?si=kTkQcu-7r83GaXke&rel=0&modestbranding=1"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen></iframe>
+                <iframe src="https://www.youtube.com/embed/FdE5G95B7Mg?rel=0&modestbranding=1" allowfullscreen></iframe>
             </div>
         </div>
     </section>
@@ -155,46 +236,50 @@
     </footer>
 
     <script>
-        window.addEventListener('scroll',()=>{
-            const nav = document.getElementById('nav');
-            const links = document.querySelectorAll('nav ul a');
-            window.scrollY > 80 ? nav.classList.add('scrolled') : nav.classList.remove('scrolled');
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+        });
+
+        document.querySelectorAll('.mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('active');
+            });
+        });
+
+        window.addEventListener('scroll', () => {
+            document.getElementById('nav').style.boxShadow = window.scrollY > 80 ? 
+                '0 4px 30px rgba(0,0,0,0.1)' : '0 4px 30px rgba(0,0,0,0.1)';
 
             let current = 'home';
-            document.querySelectorAll('section').forEach(sec=>{
-                if(scrollY >= sec.offsetTop - 200) current = sec.getAttribute('id');
+            document.querySelectorAll('section').forEach(sec => {
+                if (scrollY >= sec.offsetTop - 200) current = sec.getAttribute('id');
             });
-            links.forEach(a=>{
-                a.classList.remove('active');
-                if(a.getAttribute('href') === `#${current}`) a.classList.add('active');
+            document.querySelectorAll('.nav-links a, .mobile-menu a').forEach(a => {
+                a.classList.toggle('active', a.getAttribute('href') === `#${current}`);
             });
         });
 
-        // Modal
         const modal = document.getElementById('videoModal');
         const iframe = document.getElementById('modalVideo');
-        const close = document.querySelector('.close-modal');
-
         document.querySelectorAll('.service-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const videoId = btn.getAttribute('data-video');
-                if(videoId && !videoId.includes('_HERE')){
-                    iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1`;
+            btn.onclick = () => {
+                const id = btn.dataset.video;
+                if (id && !id.includes('_HERE')) {
+                    iframe.src = `https://www.youtube.com/embed/${id}?autoplay=1&rel=0`;
                     modal.classList.add('active');
                 }
-            });
+            };
         });
-
-        close.addEventListener('click', () => {
+        document.querySelector('.eos-modal').onclick = () => {
             modal.classList.remove('active');
             iframe.src = '';
-        });
-        modal.addEventListener('click', (e) => {
-            if(e.target === modal){
-                modal.classList.remove('active');
-                iframe.src = '';
-            }
-        });
+        };
+        modal.onclick = e => { if (e.target === modal) { modal.classList.remove('active'); iframe.src = ''; }};
     </script>
 </body>
 </html>

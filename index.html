@@ -3,283 +3,162 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>John Rey Martinez — Creative Visual Artist</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        *{margin:0;padding:0;box-sizing:border-box;}
-        html{scroll-behavior:smooth;}
-        body{font-family:'Inter',sans-serif;background:#fff;color:#111;line-height:1.7;overflow-x:hidden;}
+    <title>JRMeshLab — 3D Artist</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght=300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
 
-        /* NAVIGATION */
-        nav{
-            position:fixed;top:0;left:0;right:0;padding:16px 5%;display:flex;justify-content:space-between;align-items:center;
-            z-index:1000;transition:all 0.4s;color:#111;background:rgba(255,255,255,0.96);backdrop-filter:blur(15px);
-            box-shadow:0 4px 30px rgba(0,0,0,0.1);
-        }
-        .logo{
-            font-size:1.4rem;font-weight:700;letter-spacing:-0.8px;white-space:nowrap;z-index:1001;
-        }
-        .logo::before{content:"John Rey Martinez";}
-        @media (max-width:768px){.logo::before{content:"JRM";font-size:1.5rem;}}
-
-        /* Desktop Menu */
-        .nav-links{
-            display:flex;gap:28px;list-style:none;
-        }
-        .nav-links a{
-            font-weight:500;font-size:0.95rem;color:inherit;text-decoration:none;position:relative;padding:6px 0;
-        }
-        .nav-links a::after{
-            content:'';position:absolute;bottom:0;left:50%;width:0;height:2px;background:#111;
-            transition:all 0.4s ease;
-        }
-        .nav-links a.active::after,.nav-links a:hover::after{width:100%;left:0;}
-
-        /* Hamburger Icon (fixed size, always visible fully) */
-        .hamburger{
-            display:none;cursor:pointer;z-index:1001;padding:8px;border-radius:8px;transition:background 0.3s;
-        }
-        .hamburger:hover{background:rgba(0,0,0,0.05);}
-        .hamburger span{
-            display:block;width:24px;height:2.5px;background:#111;border-radius:3px;transition:all 0.3s;
-            margin:5px 0;
-        }
-        .hamburger.active span:nth-child(1){transform:rotate(45deg) translate(7px,7px);}
-        .hamburger.active span:nth-child(2){opacity:0;}
-        .hamburger.active span:nth-child(3){transform:rotate(-45deg) translate(7px,-7px);}
-
-        /* Mobile Menu — PERFECTLY CENTERED & RESPONSIVE */
-        .mobile-menu{
-            position:fixed;top:0;left:0;width:100%;height:100vh;background:#fff;
-            display:flex;flex-direction:column;justify-content:center;align-items:center;gap:40px;
-            font-size:1.8rem;font-weight:600;transform:translateX(100%);transition:transform 0.45s cubic-bezier(0.77,0,0.18,1);
-            z-index:999;padding:20px;box-sizing:border-box;
-        }
-        .mobile-menu.active{transform:translateX(0);}
-        .mobile-menu a{
-            color:#111;text-decoration:none;transition:opacity 0.3s;font-size:1.8rem;
-        }
-        .mobile-menu a:hover{opacity:0.6;}
-
-        /* HERO */
-        .hero{
-            min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;
-            text-align:center;padding:0 5%;padding-top:80px;gap:20px;
-        }
-        .hero h1{
-            font-size:clamp(2.8rem,8vw,6rem);font-weight:700;letter-spacing:-2px;line-height:1;
-        }
-        .hero p{
-            font-size:1.1rem;max-width:90%;color:#444;
-        }
-
-        .btn{
-            padding:16px 40px;border:2px solid #111;background:transparent;color:#111;
-            font-weight:600;font-size:1.1rem;border-radius:50px;transition:all 0.4s ease;
-            text-decoration:none;display:inline-block;cursor:pointer;margin-top:20px;
-        }
-        .btn:hover{
-            background:#111;color:#fff;transform:translateY(-4px);
-            box-shadow:0 12px 25px rgba(0,0,0,0.15);
-        }
-
-        section{padding:100px 5%;}
-        h2{font-size:clamp(2.5rem,7vw,3.8rem);text-align:center;margin-bottom:70px;letter-spacing:-1.5px;}
-        #about p{max-width:800px;margin:0 auto;font-size:1.15rem;text-align:center;color:#444;line-height:1.9;}
-
-        .services-grid{
-            display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:30px;max-width:1200px;margin:0 auto;
-        }
-        .service-btn{
-            padding:32px 20px;border:2px solid #ddd;border-radius:20px;text-align:center;background:#fff;
-            transition:all 0.4s ease;cursor:pointer;
-        }
-        .service-btn h3{font-size:1.55rem;margin-bottom:10px;font-weight:600;}
-        .service-btn p{color:#555;font-size:1rem;}
-        .service-btn:hover{
-            border-color:#111;transform:translateY(-10px);box-shadow:0 20px 40px rgba(0,0,0,0.12);
-        }
-
-        .modal{
-            display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.94);
-            align-items:center;justify-content:center;z-index:9999;padding:20px;
-        }
-        .modal.active{display:flex;}
-        .modal-content{position:relative;width:100%;max-width:900px;border-radius:20px;overflow:hidden;}
-        .eos-modal{position:absolute;top:15px;right:20px;color:#fff;font-size:2rem;cursor:pointer;
-            background:rgba(0,0,0,0.5);width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;}
-
-        .reel-wrapper{max-width:100%;margin:0 auto;border-radius:20px;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,0.12);}
-        .reel-container{position:relative;padding-bottom:56.25%;}
-        .reel-container iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0;}
-
-        .contact-section{padding:100px 5%;background:#f9f9f9;text-align:center;}
-        .contact-box{max-width:600px;margin:0 auto;background:#fff;padding:40px 30px;border-radius:20px;box-shadow:0 15px 40px rgba(0,0,0,0.1);}
-        .contact-box input,.contact-box textarea{width:100%;padding:14px;margin:12px 0;border:1px solid #ddd;border-radius:12px;font-size:1rem;}
-        .contact-box button{padding:14px 40px;background:#111;color:#fff;border:none;border-radius:50px;font-weight:600;cursor:pointer;transition:0.3s;}
-        .contact-box button:hover{background:#333;}
-
-        footer{padding:80px 5%;text-align:center;border-top:1px solid #eee;color:#777;font-size:0.9rem;}
-
-        /* MOBILE FIXES */
-        @media (max-width:768px){
-            nav{padding:14px 5%;}
-            .nav-links{display:none;}
-            .hamburger{display:block;}
-            section{padding:80px 5%;}
-            .hero{padding-top:60px;}
-            .btn{padding:14px 32px;font-size:1rem;}
-            .mobile-menu{font-size:1.6rem;gap:35px;}
-        }
-        @media (max-width:480px){
-            .hero h1{font-size:2.6rem;}
-            .services-grid{grid-template-columns:1fr;}
-            .mobile-menu{font-size:1.5rem;gap:30px;}
-        }
-    </style>
+    <!-- ANTI-INSPECT & CODE PROTECTION SCRIPT -->
+    <script>
+        document.addEventListener('contextmenu', (e) => e.preventDefault());
+        document.addEventListener('keydown', (e) => {
+            if (e.keyCode === 123) { e.preventDefault(); return false; }
+            if (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74 || e.keyCode === 67)) { e.preventDefault(); return false; }
+            if (e.ctrlKey && e.keyCode === 85) { e.preventDefault(); return false; }
+            if (e.ctrlKey && e.keyCode === 83) { e.preventDefault(); return false; }
+        });
+        setInterval(function() {
+            function insideLoop(i) {
+                if (('' + i / i).length !== 1 || i % 20 === 0) {
+                    (function() {}).constructor('debugger')();
+                } else {
+                    (function() {}).constructor('debugger')();
+                }
+                insideLoop(++i);
+            }
+            try { insideLoop(0); } catch (e) {}
+        }, 1000);
+    </script>
 </head>
 <body>
 
-    <nav id="nav">
-        <div class="logo"></div>
-        <ul class="nav-links">
-            <li><a href="#home" class="active">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#services">Services</a></li>
-            <li><a href="#reel">Reel</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
-        <div class="hamburger" id="hamburger">
-            <span></span><span></span><span></span>
+    <nav class="floating-nav">
+        <div class="nav-container">
+            <div class="logo">JRMeshLab</div>
+            <ul class="nav-links">
+                <li><a href="#home" class="active">Home</a></li>
+                <li><a href="#work">Work</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span><span></span>
+            </div>
         </div>
     </nav>
 
     <div class="mobile-menu" id="mobileMenu">
         <a href="#home">Home</a>
+        <a href="#work">Work</a>
         <a href="#about">About</a>
-        <a href="#services">Services</a>
-        <a href="#reel">Reel</a>
         <a href="#contact">Contact</a>
     </div>
 
-    <section class="hero" id="home">
-        <h1>Animation & VFX<br>Video Editor & Cinematographer</h1>
-        <p>Crafting cinematic visuals — from 3D animation and VFX to weddings, events, and branded content.</p>
-        <a href="https://9activephil4.github.io/JohnReyMartinezLinkTree/" target="_blank" class="btn">Socials</a>
-    </section>
+    <div class="site-wrapper">
+        <header class="hero-section" id="home">
+            <div class="hero-slideshow">
+                <div class="slide" style="background-image: url('images/image (1).jpg');"></div>
+                <div class="slide" style="background-image: url('images/image (2).jpg');"></div>
+                <div class="slide" style="background-image: url('images/image (3).jpg');"></div>
+                <div class="slide" style="background-image: url('images/image (4).jpg');"></div>
+            </div>
+            <div class="hero-content">
+                <p class="status-tag"><span></span> Available for freelance & contract</p>
+                <h1>3D Animation & <br class="desktop-only">Asset Modeling.</h1>
+                <p class="hero-bio">Crafting high-end cinematic visuals, precise character keyframing, and highly detailed digital look-development from the Philippines.</p>
+                
+                <a href="https://www.instagram.com/jrmeshlab/" target="_blank" style="display: inline-flex; align-items: center; gap: 12px; color: white; text-decoration: none; margin-top: 18px; font-weight: 500; opacity: 0.9; transition: 0.3s;">
+                    <img src="images/instagramlogo.png" alt="Instagram" style="width: 28px; height: 28px; object-fit: contain;">
+                    <span style="font-size: 1.05rem;">Follow me on Instagram</span>
+                </a>
+            </div>
+        </header>
 
-    <section id="about">
-        <h2>About Me</h2>
-        <p>
-            Multi-disciplinary visual artist specializing in 3D animation, visual effects, video editing, 
-            event videography, photography, and motion graphics. 
-            I deliver polished, story-driven results — no matter the project.
-        </p>
-    </section>
+        <main class="grid-layout">
+            <section class="grid-span-2 section-block" id="work">
+                <div class="block-header"><span class="section-tag">01 / SHOWREEL</span></div>
+                <div class="video-card-main">
+                    <div class="video-ratio">
+                        <iframe src="https://www.youtube.com/embed/f6jHnPwoSDM?rel=0&modestbranding=1" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </section>
 
-    <section id="services">
-        <h2>Services</h2>
-        <div class="services-grid">
-            <div class="service-btn" data-video="FdE5G95B7Mg">
-                <h3>3D Animation & VFX</h3>
-                <p>Character animation, CGI, simulations, compositing</p>
+            <div class="grid-span-2 grid-title-block"><h2>Selected Expertise & Services</h2></div>
+
+            <div class="section-block service-card" data-video="f6jHnPwoSDM">
+                <div class="card-img" style="background-image: url('images/image (1).jpg');"></div>
+                <div class="card-body">
+                    <h3>3D Animation ↗</h3>
+                    <p>Character keyframing, layout storytelling, and complex movement choreography.</p>
+                </div>
             </div>
-            <div class="service-btn" data-video="FuYfIXL_YEg">
-                <h3>Event Videography</h3>
-                <p>Weddings, concerts, corporate events</p>
+
+            <div class="section-block service-card" data-video="MODELING_ID_HERE">
+                <div class="card-img" style="background-image: url('images/image (4).jpg');"></div>
+                <div class="card-body">
+                    <h3>3D Asset Modeling ↗</h3>
+                    <p>Hard-surface look development, detailed sculpting, and optimized production texturing.</p>
+                </div>
             </div>
-            <div class="service-btn" data-video="EDITING_ID_HERE">
-                <h3>Video Editing & Color</h3>
-                <p>Cinematic edits, commercials, music videos</p>
+
+            <section class="grid-span-2 section-block" id="about">
+                <div class="block-header"><span class="section-tag">02 / BIOGRAPHY</span></div>
+                <div class="about-profile-layout">
+                    <div class="profile-frame"><img src="images/WPP.jpg" alt="John Rey Martinez" class="profile-pic"></div>
+                    <div class="about-text-wrap">
+                        <p class="highlight-text">Hi, I'm John Rey Martinez — the creator and lead artist behind JRMeshLab.</p>
+                        <p class="sub-text">I operate at the intersection of technical design and digital asset development. As a 3D Artist based in the Philippines, I founded JRMeshLab to collaborate with studios and creative directors worldwide—developing robust environmental models, production-ready assets, and fluid character animations that power cinematic pipelines.</p>
+                        
+                        <div class="tech-stack-area">
+                            <span class="tech-label">Primary Pipeline:</span>
+                            <a href="https://www.blender.org" target="_blank" class="software-badge">
+                                <img src="images/BlenderLogo.png" alt="Blender Logo" class="blender-custom-png"> Blender
+                            </a>
+                            <a href="https://www.adobe.com/products/substance3d-painter.html" target="_blank" class="software-badge">
+                                <img src="images/adobesubstance3d.png" alt="Substance Painter Logo" class="blender-custom-png"> Substance Painter
+                            </a>
+                        </div>
+                        <div class="about-action">
+                            <a href="https://9activephil4.github.io/JohnReyMartinezLinkTree/" target="_blank" class="btn-primary">Connect ↗</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="grid-span-2 section-block" id="contact">
+                <div class="block-header"><span class="section-tag">03 / INQUIRIES</span></div>
+                <div class="contact-grid">
+                    <div class="contact-info">
+                        <h3>Let's create something together.</h3>
+                        <p>Have a project in mind, or looking to add a 3D animator and general asset modeler to your pipelines?</p>
+                    </div>
+                    <form action="https://formspree.io/f/xpwledgr" method="POST" class="aamir-form">
+                        <div class="input-group"><input type="text" name="name" placeholder="Your name" required></div>
+                        <div class="input-group"><input type="email" name="_replyto" placeholder="Your email" required></div>
+                        <div class="input-group"><textarea name="message" rows="3" placeholder="Project details..." required></textarea></div>
+                        <button type="submit" class="form-submit">Send Message ↗</button>
+                    </form>
+                </div>
+            </section>
+        </main>
+
+        <footer class="site-footer">
+            <div class="footer-left">
+                <p>© 2025 JRMeshLab. Dedicated to 3D & Asset Design.</p>
+                <div class="pht-clock"><span class="clock-dot"></span> PHT: <span id="pht-time">00:00:00 PM</span></div>
             </div>
-            <div class="service-btn" data-video="PHOTO_ID_HERE">
-                <h3>Photography</h3>
-                <p>Portraits, events, products</p>
+            <div class="footer-right">
+                <a href="https://github.com" target="_blank" class="github-badge">Powered by GitHub</a>
             </div>
-            <div class="service-btn" data-video="MOTION_ID_HERE">
-                <h3>Motion Graphics</h3>
-                <p>Logo animations, titles, explainer videos</p>
-            </div>
-        </div>
-    </section>
+        </footer>
+    </div>
 
     <div class="modal" id="videoModal">
         <div class="modal-content">
-            <span class="eos-modal">×</span>
+            <span class="eos-modal" id="closeModal">×</span>
             <iframe id="modalVideo" src="" allow="autoplay; fullscreen" allowfullscreen></iframe>
         </div>
     </div>
-
-    <section id="reel">
-        <h2>Animation & VFX Reel 2025</h2>
-        <div class="reel-wrapper">
-            <div class="reel-container">
-                <iframe src="https://www.youtube.com/embed/FdE5G95B7Mg?rel=0&modestbranding=1" allowfullscreen></iframe>
-            </div>
-        </div>
-    </section>
-
-    <section id="contact" class="contact-section">
-        <h2>Message Me</h2>
-        <div class="contact-box">
-            <form action="https://formspree.io/f/xpwledgr" method="POST">
-                <input type="text" name="name" placeholder="Your Name" required>
-                <input type="email" name="_replyto" placeholder="Your Email" required>
-                <textarea name="message" rows="5" placeholder="Your Message..." required></textarea>
-                <button type="submit">Send Message</button>
-            </form>
-        </div>
-    </section>
-
-    <footer>
-        <p>© 2025 John Rey Martinez. All rights reserved.</p>
-    </footer>
-
-    <script>
-        const hamburger = document.getElementById('hamburger');
-        const mobileMenu = document.getElementById('mobileMenu');
-
-        hamburger.addEventListener('click', () => {
-            hamburger.classList.toggle('active');
-            mobileMenu.classList.toggle('active');
-        });
-
-        document.querySelectorAll('.mobile-menu a').forEach(link => {
-            link.addEventListener('click', () => {
-                hamburger.classList.remove('active');
-                mobileMenu.classList.remove('active');
-            });
-        });
-
-        window.addEventListener('scroll', () => {
-            document.getElementById('nav').style.boxShadow = window.scrollY > 80 ? 
-                '0 4px 30px rgba(0,0,0,0.1)' : '0 4px 30px rgba(0,0,0,0.1)';
-
-            let current = 'home';
-            document.querySelectorAll('section').forEach(sec => {
-                if (scrollY >= sec.offsetTop - 200) current = sec.getAttribute('id');
-            });
-            document.querySelectorAll('.nav-links a, .mobile-menu a').forEach(a => {
-                a.classList.toggle('active', a.getAttribute('href') === `#${current}`);
-            });
-        });
-
-        const modal = document.getElementById('videoModal');
-        const iframe = document.getElementById('modalVideo');
-        document.querySelectorAll('.service-btn').forEach(btn => {
-            btn.onclick = () => {
-                const id = btn.dataset.video;
-                if (id && !id.includes('_HERE')) {
-                    iframe.src = `https://www.youtube.com/embed/${id}?autoplay=1&rel=0`;
-                    modal.classList.add('active');
-                }
-            };
-        });
-        document.querySelector('.eos-modal').onclick = () => {
-            modal.classList.remove('active');
-            iframe.src = '';
-        };
-        modal.onclick = e => { if (e.target === modal) { modal.classList.remove('active'); iframe.src = ''; }};
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
